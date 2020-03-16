@@ -27,17 +27,17 @@ export const actions = {
     await dispatch('getPages')
   },
   async getBlogPosts({ state, commit }) {
-    const context = await require.context('~/content/blog/', false, /\.json$/);
+    const context = await require.context('~/content/blog/', false, /\.md$/);
 
     const searchposts = await context.keys().map(key => ({
       ...context(key),
-      _path: `/blog/${key.replace('.json', '').replace('./', '')}`
+      _path: `/blog/${key.replace('.md', '').replace('./', '')}`
     }));
 
     commit('SET_POSTS', searchposts.reverse())
   },
   async getPages({ state, commit }) {
-    const context = await require.context('~/content/pages/', false, /\.json$/);
+    const context = await require.context('~/content/pages/', false, /\.md$/);
 
     const pages = await context.keys().map(key => ({
       ...context(key),
